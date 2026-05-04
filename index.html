@@ -15,6 +15,7 @@ body {
   color: #fff;
 }
 
+/* HEADER */
 .header {
   display:flex;
   align-items:center;
@@ -27,6 +28,7 @@ body {
 
 .header img { width:65px; }
 
+/* CARDS */
 .section-grid {
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -36,27 +38,31 @@ body {
 .card {
   background:#fff;
   color:#111;
-  padding:10px;
+  padding:12px;
   border-radius:6px;
   box-shadow:0 4px 6px rgba(0,0,0,0.25);
 }
 
-.full-width {
-  grid-column: span 3;
-}
+.full { grid-column: span 3; }
 
 textarea, input {
   width:100%;
   margin-bottom:6px;
 }
 
+/* CHECKBOX FIX */
 .option {
-  display:block;
-  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:2px 0;
 }
 
-#output {
-  margin-top:15px;
+.option input { margin:0; }
+
+small {
+  font-size:12px;
+  color:#444;
 }
 </style>
 </head>
@@ -68,225 +74,270 @@ textarea, input {
   <h2>LSSD Recruitment Application</h2>
 </div>
 
-<h3>Personal Information</h3>
+<div class="card full">
+<h4>Instructions to the Applicant</h4>
+<p>
+The information you provide in this application will be used in the background investigation to assist in determining your suitability for the position of San Andreas Peace Officer. You must respond to all items. If a question does not apply to you, write "D.N.A." in the space provided. Deliberate misstatements or omissions can and often will result in your application being rejected.
+</p>
+<p style="text-align:center;"><b><i>BOTTOM LINE: You are responsible for providing complete, accurate, and truthful responses.</i></b></p>
+</div>
+
+<h3>1. PERSONAL INFORMATION</h3>
+
 <div class="section-grid">
 
 <div class="card">
-<h4>Full Name</h4>
-<input id="firstName">
-<input id="middleName">
-<input id="lastName">
+<h4>1–3. NAME</h4>
+<input id="firstName" placeholder="First Name">
+<input id="middleName" placeholder="Middle Name">
+<input id="lastName" placeholder="Last Name">
 </div>
 
 <div class="card">
-<h4>Birth</h4>
+<h4>4–5. BIRTH</h4>
 <input id="dob" type="date">
-<input id="birthPlace">
+<input id="birthPlace" placeholder="Place of Birth">
 </div>
 
 <div class="card">
-<h4>Gender</h4>
-<label class="option"><input type="radio" name="gender" value="Male"> Male</label>
-<label class="option"><input type="radio" name="gender" value="Female"> Female</label>
-<label class="option"><input type="radio" name="gender" value="Other"> Other</label>
+<h4>6. GENDER</h4>
+<label class="option"><input type="radio" name="gender" value="Male"> [—] Male</label>
+<label class="option"><input type="radio" name="gender" value="Female"> [—] Female</label>
+<label class="option"><input type="radio" name="gender" value="Other"> [—] Other</label>
 </div>
 
 <div class="card">
-<h4>Race</h4>
-<label class="option"><input type="radio" name="race" value="White"> White</label>
-<label class="option"><input type="radio" name="race" value="Black"> Black</label>
-<label class="option"><input type="radio" name="race" value="Hispanic"> Hispanic</label>
-<label class="option"><input type="radio" name="race" value="Asian"> Asian</label>
-<label class="option"><input type="radio" name="race" value="Other"> Other</label>
+<h4>7. RACE</h4>
+<label class="option"><input type="radio" name="race" value="White"> [—] White</label>
+<label class="option"><input type="radio" name="race" value="Black"> [—] Black or African American</label>
+<label class="option"><input type="radio" name="race" value="Hispanic"> [—] Hispanic or Latino</label>
+<label class="option"><input type="radio" name="race" value="Asian"> [—] Asian</label>
+<label class="option"><input type="radio" name="race" value="Other"> [—] Other</label>
 </div>
 
 <div class="card">
-<h4>Marital</h4>
-<label class="option"><input type="radio" name="marital" value="Single"> Single</label>
-<label class="option"><input type="radio" name="marital" value="Married"> Married</label>
-<label class="option"><input type="radio" name="marital" value="Divorced"> Divorced</label>
+<h4>8. HEIGHT & WEIGHT</h4>
+<input id="feet" placeholder="Feet">
+<input id="inches" placeholder="Inches">
+<input id="pounds" placeholder="Pounds">
 </div>
 
 <div class="card">
-<h4>Contact</h4>
-<input id="address">
-<input id="phone">
+<h4>9. MARITAL STATUS</h4>
+<label class="option"><input type="radio" name="marital" value="Single"> [—] Single</label>
+<label class="option"><input type="radio" name="marital" value="Married"> [—] Married</label>
+<label class="option"><input type="radio" name="marital" value="Divorced"> [—] Divorced</label>
+<label class="option"><input type="radio" name="marital" value="Other"> [—] Other</label>
+</div>
+
+<div class="card full">
+<h4>10–11. ADDRESS & PHONE</h4>
+<input id="address" placeholder="Street Number & Name">
+<input id="city" placeholder="City">
+<input id="state" placeholder="State">
+<input id="phone" placeholder="Phone">
 </div>
 
 </div>
 
-<h3>Background</h3>
+<h3>2. BACKGROUND QUESTIONNAIRE</h3>
+
 <div class="section-grid">
 
 <div class="card">
-<h4>Education</h4>
-<label class="option"><input type="radio" name="education" value="High School"> High School</label>
-<label class="option"><input type="radio" name="education" value="College"> College</label>
-<label class="option"><input type="radio" name="education" value="Degree"> Degree</label>
+<h4>12. EDUCATION</h4>
+<label class="option"><input type="radio" name="education" value="High School"> [—] High School</label>
+<label class="option"><input type="radio" name="education" value="College"> [—] College</label>
+<label class="option"><input type="radio" name="education" value="Degree"> [—] Degree</label>
 </div>
 
 <div class="card">
-<h4>Driver License</h4>
-<label class="option"><input type="radio" name="license" value="Yes"> Yes</label>
-<label class="option"><input type="radio" name="license" value="No"> No</label>
+<h4>13. DRIVER LICENSE</h4>
+<label class="option"><input type="radio" name="license" value="Yes"> [—] Yes</label>
+<label class="option"><input type="radio" name="license" value="No"> [—] No</label>
 </div>
 
 <div class="card">
-<h4>Work Eligibility</h4>
-<label class="option"><input type="radio" name="work" value="Yes"> Yes</label>
-<label class="option"><input type="radio" name="work" value="No"> No</label>
+<h4>14. WORK ELIGIBILITY</h4>
+<label class="option"><input type="radio" name="work" value="Yes"> [—] Yes</label>
+<label class="option"><input type="radio" name="work" value="No"> [—] No</label>
+</div>
+
+<div class="card full">
+<h4>15. LANGUAGES</h4>
+<input id="languages" placeholder="Answer Here">
 </div>
 
 </div>
 
-<h3>OOC</h3>
+<h3>4. OUT OF CHARACTER QUESTIONS</h3>
+
 <div class="section-grid">
 
 <div class="card">
-<h4>Timezone & Discord</h4>
+<h4>17–18. TIMEZONE & DISCORD</h4>
 <input id="timezone">
 <input id="discord">
 </div>
 
 <div class="card">
-<h4>Characters</h4>
+<h4>19. CHARACTERS</h4>
 <div id="charList"></div>
 <button onclick="addChar()">+ Add</button>
 </div>
 
 <div class="card">
-<h4>Admin Record</h4>
-<p style="font-size:12px;">
-Generate at:
-https://solsroleplay.com/ucp/admin_record.php
-</p>
+<h4>20. ADMIN RECORD</h4>
+<small>Generate at: https://solsroleplay.com/ucp/admin_record.php</small>
 <input id="adminRecord">
 </div>
 
-<div class="card full-width">
-<h4>Background Story</h4>
-<p style="color:red;font-size:12px;">Any use of AI will result in disqualification.</p>
+<div class="card full">
+<h4>21. BACKGROUND STORY</h4>
+<small style="color:red;">Any use of AI will result in disqualification</small>
 <textarea id="story" rows="10"></textarea>
 </div>
 
 </div>
 
-<button onclick="copyOutput()">Copy</button>
-
 <textarea id="output" rows="18"></textarea>
 
 <script>
-
 const $ = id => document.getElementById(id);
 
-// ================= LOCAL STORAGE =================
-document.querySelectorAll("input, textarea").forEach(el => {
-  if (!el.id) return;
-
-  const saved = localStorage.getItem(el.id);
-  if (saved !== null) el.value = saved;
-
-  el.addEventListener("input", () => {
-    localStorage.setItem(el.id, el.value);
-    update();
-  });
+// auto update
+document.querySelectorAll("input, textarea").forEach(el=>{
+  el.addEventListener("input", update);
 });
 
-// radios
-document.querySelectorAll("input[type=radio]").forEach(r => {
-  const saved = localStorage.getItem(r.name);
-  if (saved === r.value) r.checked = true;
-
-  r.addEventListener("change", () => {
-    localStorage.setItem(r.name, r.value);
-    update();
-  });
+document.querySelectorAll("input[type=radio]").forEach(el=>{
+  el.addEventListener("change", update);
 });
 
-// characters
-function addChar(val=""){
-  const div = document.createElement("div");
-  const input = document.createElement("input");
-  input.value = val;
-
-  input.oninput = () => {
-    saveChars();
-    update();
-  };
-
-  div.appendChild(input);
-  $("charList").appendChild(div);
-  saveChars();
-}
-
-function saveChars(){
-  const chars = [];
-  document.querySelectorAll("#charList input").forEach(i=>{
-    chars.push(i.value);
-  });
-  localStorage.setItem("chars", JSON.stringify(chars));
-}
-
-// restore chars
-const savedChars = JSON.parse(localStorage.getItem("chars") || "[]");
-savedChars.forEach(c => addChar(c));
-
-// ================= GENERATE =================
 function getRadio(name){
   const el = document.querySelector(`input[name="${name}"]:checked`);
   return el ? el.value : "D.N.A.";
 }
 
+function addChar(){
+  const i = document.createElement("input");
+  document.getElementById("charList").appendChild(i);
+}
+
 function update(){
 
-let chars = "";
-document.querySelectorAll("#charList input").forEach(i=>{
-  chars += `[*] ${i.value || "D.N.A."}\n`;
+let chars="";
+document.querySelectorAll("#charList input").forEach((i,idx)=>{
+  chars += `[*] Character ${idx+1}: ${i.value || "D.N.A."}\n`;
 });
 
 const out = `
-[b]NAME[/b]
-[listnone]${$("firstName").value} ${$("middleName").value} ${$("lastName").value}[/listnone]
+[sectionheader]Instructions to the Applicant[/sectionheader][sectionbody]
+The information you provide in this application will be used in the background investigation to assist in determining your suitability for the position of San Andreas Peace Officer. You must respond to all items. If a question does not apply to you, write "D.N.A." in the space provided. Deliberate misstatements or omissions can and often will result in your application being rejected.
+[center][b][i]BOTTOM LINE: You are responsible for providing complete, accurate, and truthful responses.[/i][/b][/center]
+[/sectionbody]
 
-[b]GENDER[/b]
+[sectionheader]1. PERSONAL INFORMATION[/sectionheader][sectionbody]
+
+[b]1. FIRST NAME[/b]
+[listnone]${$("firstName").value || "D.N.A."}[/listnone]
+
+[b]2. MIDDLE NAME[/b]
+[listnone]${$("middleName").value || "D.N.A."}[/listnone]
+
+[b]3. LAST NAME[/b]
+[listnone]${$("lastName").value || "D.N.A."}[/listnone]
+
+[b]4. DATE OF BIRTH[/b]
+[listnone]${$("dob").value || "D.N.A."}[/listnone]
+
+[b]5. PLACE OF BIRTH[/b]
+[listnone]${$("birthPlace").value || "D.N.A."}[/listnone]
+
+[b]6. GENDER[/b]
 [listnone]${getRadio("gender")}[/listnone]
 
-[b]RACE[/b]
+[b]7. RACE[/b]
 [listnone]${getRadio("race")}[/listnone]
 
-[b]MARITAL[/b]
+[b]8. HEIGHT & WEIGHT[/b]
+[listnone]
+In feet: ${$("feet").value || "D.N.A."}
+In inches: ${$("inches").value || "D.N.A."}
+In pounds: ${$("pounds").value || "D.N.A."}
+[/listnone]
+
+[b]9. MARITAL STATUS[/b]
 [listnone]${getRadio("marital")}[/listnone]
 
-[b]EDUCATION[/b]
+[b]10. ADDRESS OF PRIMARY RESIDENCY[/b]
+[listnone]
+Street Number & Name: ${$("address").value || "D.N.A."}
+City: ${$("city").value || "D.N.A."}
+State: ${$("state").value || "D.N.A."}
+[/listnone]
+
+[b]11. PRIMARY PHONE NUMBER[/b]
+[listnone]${$("phone").value || "D.N.A."}[/listnone]
+
+[floatright][b]PROCEED TO NEXT PAGE[/b][/floatright]
+[/sectionbody]
+
+[sectionheader]2. BACKGROUND QUESTIONNAIRE[/sectionheader][sectionbody]
+
+[b]12. LEVEL OF EDUCATION[/b]
 [listnone]${getRadio("education")}[/listnone]
 
-[b]LICENSE[/b]
+[b]13. I HAVE A VALID SAN ANDREAS DRIVER LICENSE[/b]
 [listnone]${getRadio("license")}[/listnone]
 
-[b]WORK[/b]
+[b]14. I AM LEGALLY ABLE TO WORK IN THE UNITED STATES OF AMERICA[/b]
 [listnone]${getRadio("work")}[/listnone]
 
-[b]CHARACTERS[/b]
+[b]15. IN ADDITION TO ENGLISH, I KNOW THE FOLLOWING LANGUAGE(S)[/b]
+[listnone]${$("languages").value || "D.N.A."}[/listnone]
+
+[floatright][b]PROCEED TO NEXT PAGE[/b][/floatright]
+[/sectionbody]
+
+[sectionheader]3. DECLARATION & ACKNOWLEDGEMENT[/sectionheader][sectionbody]
+I, the undersigned, do herein agree that the information aforementioned is true and complete to the best of my knowledge under the penalty of perjury. I further agree and understand that the information provided will be utilized by the Los Santos County Sheriff's Department for the purposes of employment & preliminary background investigation for the position of Deputy Sheriff Trainee.
+
+[b]16. SIGNATURE[/b]
+[listnone]${$("firstName").value || "D.N.A."} ${$("lastName").value || ""}[/listnone]
+
+[floatright][b]PROCEED TO NEXT PAGE[/b][/floatright]
+[/sectionbody]
+
+[sectionheader](( 4. OUT OF CHARACTER QUESTIONS ))[/sectionheader][sectionbody]
+
+[b]17. MY TIMEZONE & COUNTRY[/b]
+[listnone]${$("timezone").value || "D.N.A."}[/listnone]
+
+[b]18. MY DISCORD USERNAME[/b]
+[listnone]${$("discord").value || "D.N.A."}[/listnone]
+
+[b]19. LIST OF MY CURRENT CHARACTERS AND MY UCP NAME[/b]
 [list]
+[*]UCP Name: ${$("ucpName").value || "D.N.A."}
 ${chars}
 [/list]
 
-[b]ADMIN RECORD[/b]
-[spoiler][img]${$("adminRecord").value}[/img][/spoiler]
+[b]20. UNEDITED SCREENSHOT OF UCP ADMIN RECORDS[/b]
+[listnone]
+Generate your record at: https://solsroleplay.com/ucp/admin_record.php
+[spoiler][img]${$("adminRecord").value || "D.N.A."}[/img][/spoiler]
+[/listnone]
 
-[b]STORY[/b]
-[listnone]${$("story").value}[/listnone]
+[b]21. BACKGROUND STORY[/b]
+[listnone]${$("story").value || "D.N.A."}[/listnone]
+
+[floatright][b]STOP — END OF APPLICATION[/b][/floatright]
+[/sectionbody]
 `;
 
 $("output").value = out.trim();
 }
-
-function copyOutput(){
-  $("output").select();
-  document.execCommand("copy");
-}
-
-update();
 
 </script>
 
