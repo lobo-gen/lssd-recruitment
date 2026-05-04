@@ -28,13 +28,14 @@ body {
 
 .header img { width:65px; }
 
-/* CARDS */
+/* GRID */
 .section-grid {
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:20px;
 }
 
+/* CARDS */
 .card {
   background:#fff;
   color:#111;
@@ -50,19 +51,31 @@ textarea, input {
   margin-bottom:6px;
 }
 
-/* CHECKBOX FIX */
+/* CHECKBOX ALIGN */
 .option {
   display:flex;
   align-items:center;
+  justify-content:flex-start;
   gap:8px;
   margin:2px 0;
 }
 
-.option input { margin:0; }
+/* VALIDATION */
+.input-error {
+  border:2px solid #c0392b !important;
+}
+
+.input-ok {
+  border:2px solid #2ecc71 !important;
+}
 
 small {
   font-size:12px;
   color:#444;
+}
+
+.output-area {
+  margin-top:30px;
 }
 </style>
 </head>
@@ -101,18 +114,18 @@ The information you provide in this application will be used in the background i
 
 <div class="card">
 <h4>6. GENDER</h4>
-<label class="option"><input type="radio" name="gender" value="Male"> [—] Male</label>
-<label class="option"><input type="radio" name="gender" value="Female"> [—] Female</label>
-<label class="option"><input type="radio" name="gender" value="Other"> [—] Other</label>
+<label class="option"><input type="radio" name="gender" value="Male"> Male</label>
+<label class="option"><input type="radio" name="gender" value="Female"> Female</label>
+<label class="option"><input type="radio" name="gender" value="Other"> Other</label>
 </div>
 
 <div class="card">
 <h4>7. RACE</h4>
-<label class="option"><input type="radio" name="race" value="White"> [—] White</label>
-<label class="option"><input type="radio" name="race" value="Black"> [—] Black or African American</label>
-<label class="option"><input type="radio" name="race" value="Hispanic"> [—] Hispanic or Latino</label>
-<label class="option"><input type="radio" name="race" value="Asian"> [—] Asian</label>
-<label class="option"><input type="radio" name="race" value="Other"> [—] Other</label>
+<label class="option"><input type="radio" name="race" value="White"> White</label>
+<label class="option"><input type="radio" name="race" value="Black"> Black or African American</label>
+<label class="option"><input type="radio" name="race" value="Hispanic"> Hispanic or Latino</label>
+<label class="option"><input type="radio" name="race" value="Asian"> Asian</label>
+<label class="option"><input type="radio" name="race" value="Other"> Other</label>
 </div>
 
 <div class="card">
@@ -124,10 +137,10 @@ The information you provide in this application will be used in the background i
 
 <div class="card">
 <h4>9. MARITAL STATUS</h4>
-<label class="option"><input type="radio" name="marital" value="Single"> [—] Single</label>
-<label class="option"><input type="radio" name="marital" value="Married"> [—] Married</label>
-<label class="option"><input type="radio" name="marital" value="Divorced"> [—] Divorced</label>
-<label class="option"><input type="radio" name="marital" value="Other"> [—] Other</label>
+<label class="option"><input type="radio" name="marital" value="Single"> Single</label>
+<label class="option"><input type="radio" name="marital" value="Married"> Married</label>
+<label class="option"><input type="radio" name="marital" value="Divorced"> Divorced</label>
+<label class="option"><input type="radio" name="marital" value="Other"> Other</label>
 </div>
 
 <div class="card full">
@@ -145,22 +158,23 @@ The information you provide in this application will be used in the background i
 <div class="section-grid">
 
 <div class="card">
-<h4>12. EDUCATION</h4>
-<label class="option"><input type="radio" name="education" value="High School"> [—] High School</label>
-<label class="option"><input type="radio" name="education" value="College"> [—] College</label>
-<label class="option"><input type="radio" name="education" value="Degree"> [—] Degree</label>
+<h4>12. LEVEL OF EDUCATION</h4>
+<label class="option"><input type="radio" name="education" value="Some High School"> Some High School</label>
+<label class="option"><input type="radio" name="education" value="High School"> High School</label>
+<label class="option"><input type="radio" name="education" value="College"> College</label>
+<label class="option"><input type="radio" name="education" value="Degree"> Degree</label>
 </div>
 
 <div class="card">
 <h4>13. DRIVER LICENSE</h4>
-<label class="option"><input type="radio" name="license" value="Yes"> [—] Yes</label>
-<label class="option"><input type="radio" name="license" value="No"> [—] No</label>
+<label class="option"><input type="radio" name="license" value="Yes"> Yes</label>
+<label class="option"><input type="radio" name="license" value="No"> No</label>
 </div>
 
 <div class="card">
 <h4>14. WORK ELIGIBILITY</h4>
-<label class="option"><input type="radio" name="work" value="Yes"> [—] Yes</label>
-<label class="option"><input type="radio" name="work" value="No"> [—] No</label>
+<label class="option"><input type="radio" name="work" value="Yes"> Yes</label>
+<label class="option"><input type="radio" name="work" value="No"> No</label>
 </div>
 
 <div class="card full">
@@ -176,12 +190,13 @@ The information you provide in this application will be used in the background i
 
 <div class="card">
 <h4>17–18. TIMEZONE & DISCORD</h4>
-<input id="timezone">
-<input id="discord">
+<input id="timezone" placeholder="Timezone & Country">
+<input id="discord" placeholder="Discord Username">
 </div>
 
 <div class="card">
 <h4>19. CHARACTERS</h4>
+<input id="ucpName" placeholder="UCP Name">
 <div id="charList"></div>
 <button onclick="addChar()">+ Add</button>
 </div>
@@ -200,20 +215,48 @@ The information you provide in this application will be used in the background i
 
 </div>
 
+<div class="output-area">
+<h3>Output</h3>
 <textarea id="output" rows="18"></textarea>
+</div>
 
 <script>
 const $ = id => document.getElementById(id);
 
-// auto update
+// ================= LOCAL STORAGE =================
 document.querySelectorAll("input, textarea").forEach(el=>{
-  el.addEventListener("input", update);
+  if (!el.id) return;
+
+  const saved = localStorage.getItem(el.id);
+  if (saved !== null) el.value = saved;
+
+  el.addEventListener("input", ()=>{
+    localStorage.setItem(el.id, el.value);
+  });
 });
 
-document.querySelectorAll("input[type=radio]").forEach(el=>{
-  el.addEventListener("change", update);
+// ================= VALIDATION =================
+const requiredFields = ["firstName","lastName","dob","ucpName","discord","story"];
+
+function validateField(el){
+  if(!el) return;
+
+  if(!el.value || el.value.trim()===""){
+    el.classList.add("input-error");
+    el.classList.remove("input-ok");
+  } else {
+    el.classList.remove("input-error");
+    el.classList.add("input-ok");
+  }
+}
+
+requiredFields.forEach(id=>{
+  const el = $(id);
+  if(!el) return;
+  el.addEventListener("input", ()=>validateField(el));
 });
 
+// ================= HELPERS =================
 function getRadio(name){
   const el = document.querySelector(`input[name="${name}"]:checked`);
   return el ? el.value : "D.N.A.";
@@ -221,10 +264,21 @@ function getRadio(name){
 
 function addChar(){
   const i = document.createElement("input");
+  i.placeholder = "Character name";
   document.getElementById("charList").appendChild(i);
 }
 
+// ================= AUTO UPDATE =================
+document.querySelectorAll("input, textarea").forEach(el=>{
+  el.addEventListener("input", update);
+});
+document.querySelectorAll("input[type=radio]").forEach(el=>{
+  el.addEventListener("change", update);
+});
+
 function update(){
+
+requiredFields.forEach(id=>validateField($(id)));
 
 let chars="";
 document.querySelectorAll("#charList input").forEach((i,idx)=>{
@@ -232,11 +286,6 @@ document.querySelectorAll("#charList input").forEach((i,idx)=>{
 });
 
 const out = `
-[sectionheader]Instructions to the Applicant[/sectionheader][sectionbody]
-The information you provide in this application will be used in the background investigation to assist in determining your suitability for the position of San Andreas Peace Officer. You must respond to all items. If a question does not apply to you, write "D.N.A." in the space provided. Deliberate misstatements or omissions can and often will result in your application being rejected.
-[center][b][i]BOTTOM LINE: You are responsible for providing complete, accurate, and truthful responses.[/i][/b][/center]
-[/sectionbody]
-
 [sectionheader]1. PERSONAL INFORMATION[/sectionheader][sectionbody]
 
 [b]1. FIRST NAME[/b]
@@ -280,36 +329,9 @@ State: ${$("state").value || "D.N.A."}
 [b]11. PRIMARY PHONE NUMBER[/b]
 [listnone]${$("phone").value || "D.N.A."}[/listnone]
 
-[floatright][b]PROCEED TO NEXT PAGE[/b][/floatright]
 [/sectionbody]
 
-[sectionheader]2. BACKGROUND QUESTIONNAIRE[/sectionheader][sectionbody]
-
-[b]12. LEVEL OF EDUCATION[/b]
-[listnone]${getRadio("education")}[/listnone]
-
-[b]13. I HAVE A VALID SAN ANDREAS DRIVER LICENSE[/b]
-[listnone]${getRadio("license")}[/listnone]
-
-[b]14. I AM LEGALLY ABLE TO WORK IN THE UNITED STATES OF AMERICA[/b]
-[listnone]${getRadio("work")}[/listnone]
-
-[b]15. IN ADDITION TO ENGLISH, I KNOW THE FOLLOWING LANGUAGE(S)[/b]
-[listnone]${$("languages").value || "D.N.A."}[/listnone]
-
-[floatright][b]PROCEED TO NEXT PAGE[/b][/floatright]
-[/sectionbody]
-
-[sectionheader]3. DECLARATION & ACKNOWLEDGEMENT[/sectionheader][sectionbody]
-I, the undersigned, do herein agree that the information aforementioned is true and complete to the best of my knowledge under the penalty of perjury. I further agree and understand that the information provided will be utilized by the Los Santos County Sheriff's Department for the purposes of employment & preliminary background investigation for the position of Deputy Sheriff Trainee.
-
-[b]16. SIGNATURE[/b]
-[listnone]${$("firstName").value || "D.N.A."} ${$("lastName").value || ""}[/listnone]
-
-[floatright][b]PROCEED TO NEXT PAGE[/b][/floatright]
-[/sectionbody]
-
-[sectionheader](( 4. OUT OF CHARACTER QUESTIONS ))[/sectionheader][sectionbody]
+[sectionheader]4. OUT OF CHARACTER QUESTIONS[/sectionheader][sectionbody]
 
 [b]17. MY TIMEZONE & COUNTRY[/b]
 [listnone]${$("timezone").value || "D.N.A."}[/listnone]
@@ -332,13 +354,11 @@ Generate your record at: https://solsroleplay.com/ucp/admin_record.php
 [b]21. BACKGROUND STORY[/b]
 [listnone]${$("story").value || "D.N.A."}[/listnone]
 
-[floatright][b]STOP — END OF APPLICATION[/b][/floatright]
 [/sectionbody]
 `;
 
 $("output").value = out.trim();
 }
-
 </script>
 
 </body>
