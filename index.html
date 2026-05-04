@@ -178,9 +178,17 @@ The information you provide in this application will be used in the background i
 
 <div class="card">
 <h4>12. LEVEL OF EDUCATION</h4>
+
+<label class="option"><input type="radio" name="education" value="Some High School"> Some High School</label>
 <label class="option"><input type="radio" name="education" value="High School"> High School</label>
+<label class="option"><input type="radio" name="education" value="Some College"> Some College</label>
 <label class="option"><input type="radio" name="education" value="College"> College</label>
-<label class="option"><input type="radio" name="education" value="Degree"> Degree</label>
+<label class="option"><input type="radio" name="education" value="Technical College"> Technical College</label>
+<label class="option"><input type="radio" name="education" value="Associate's Degree"> Associate's Degree</label>
+<label class="option"><input type="radio" name="education" value="Bachelor's Degree"> Bachelor's Degree</label>
+<label class="option"><input type="radio" name="education" value="Master's Degree"> Master's Degree</label>
+<label class="option"><input type="radio" name="education" value="Doctorate"> Doctorate</label>
+
 </div>
 
 <div class="card">
@@ -197,9 +205,8 @@ The information you provide in this application will be used in the background i
 
 <div class="card full">
 <h4>15. IN ADDITION TO ENGLISH, I KNOW THE FOLLOWING LANGUAGE(S)</h4>
-<input id="languages" placeholder="Languages">
-<div id="Languages"></div>
-<button onclick="addChar()">+ Add</button> 
+<div id="languageList"></div>
+<button type="button" onclick="addLanguage()">+ Add Language</button>
 </div>
 
 </div>
@@ -212,15 +219,18 @@ The information you provide in this application will be used in the background i
 <div class="card">
 <h4>17–18. YOUR TIMEZONE, COUNTRY AND DISCORD USERNAME</h4>
 <input id="timezone" placeholder="Timezone">
-  <input id="timezone" placeholder="Country">
+<input id="country" placeholder="Country">
 <input id="discord" placeholder="Discord">
 </div>
 
 <div class="card">
 <h4>19. LIST OF CURRENT CHARACTERS AND UCP NAME</h4>
+
 <input id="ucpName" placeholder="UCP Name">
+
 <div id="charList"></div>
-<button onclick="addChar()">+ Add</button>
+
+<button type="button" onclick="addChar()">+ Add Character</button>
 </div>
 
 <div class="card">
@@ -231,15 +241,272 @@ The information you provide in this application will be used in the background i
 
 <div class="card full">
 <h4>21. YOUR CHARACTER'S BACKGROUND STORY</h4>
-<textarea id="story" rows="10" placeholder="Any use of AI will result in immediate disqualification"></textarea>
-</div>
+
+<textarea id="story" rows="10"
+placeholder="Write about your character: background, life story, psychological traits, and motivations for joining the LSSD."></textarea>
+
+<p style="color:#c0392b; margin-top:5px;">
+Any use of AI will result in immediate disqualification.
+</p>
 
 </div>
 
+</div>
+  
+<button onclick="generateBBCode()">Generate BBCode</button>
 <div class="output-area">
 <h3>Output</h3>
 <textarea id="output" rows="18"></textarea>
 </div>
 
+  <script>
+const $ = id => document.getElementById(id);
+
+// ================= LOCAL STORAGE =================
+document.querySelectorAll("input, textarea").forEach(el => {
+  if (!el.id) return;
+
+  const saved = localStorage.getItem(el.id);
+  if (saved !== null) el.value = saved;
+
+  el.addEventListener("input", () => {
+    localStorage.setItem(el.id, el.value);
+  });
+});
+
+// ================= CHARACTERS =================
+function addChar(){
+  const container = $("charList");
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.placeholder = "Character name";
+
+  input.addEventListener("input", saveChars);
+
+  container.appendChild(input);
+  saveChars();
+}
+
+function saveChars(){
+  localStorage.setItem("charListHTML", $("charList").innerHTML);
+}
+
+// restore
+const savedChars = localStorage.getItem("charListHTML");
+if (savedChars) {
+  $("charList").innerHTML = savedChars;
+
+  document.querySelectorAll("#charList input").forEach(input=>{
+    input.addEventListener("input", saveChars);
+  });
+}
+
+// ================= LANGUAGES =================
+function addLanguage(){
+  const container = $("languageList");
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.placeholder = "Language";
+
+  input.addEventListener("input", saveLanguages);
+
+  container.appendChild(input);
+  saveLanguages();
+}
+
+function saveLanguages(){
+  localStorage.setItem("languageListHTML", $("languageList").innerHTML);
+}
+
+// restore
+const savedLang = localStorage.getItem("languageListHTML");
+if (savedLang) {
+  $("languageList").innerHTML = savedLang;
+
+  document.querySelectorAll("#languageList input").forEach(input=>{
+    input.addEventListener("input", saveLanguages);
+function val(id){
+  const el = document.getElementById(id);
+  return el && el.value.trim() ? el.value : "D.N.A.";
+}
+
+function radio(name){
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : "D.N.A.";
+}
+
+function radioList(name, options){
+  const selected = radio(name);
+  return options.map(opt => `[${selected === opt ? "X" : "—"}] ${opt}`).join("\n");
+}
+
+function getLanguages(){
+  let out = "";
+  document.querySelectorAll("#languageList input").forEach(i=>{
+    if(i.value.trim()) out += i.value + "\n";
+  });
+  return out.trim() || "D.N.A.";
+}
+
+function getCharacters(){
+  let out = `[*]UCP Name: ${val("ucpName")}\n`;
+
+  document.querySelectorAll("#charList input").forEach((i,idx)=>{
+    out += `[*]Character ${idx+1}: ${i.value || "D.N.A."}\n`;
+  });
+
+  return out.trim();
+}
+
+function generateBBCode(){
+
+const output = `[sectionheader]Instructions to the Applicant[/sectionheader][sectionbody]
+The information you provide in this application will be used in the background investigation to assist in determining your suitability for the position of San Andreas Peace Officer. You must respond to all items. If a question does not apply to you, write "D.N.A." in the space provided. Deliberate misstatements or omissions can and often will result in your application being rejected.
+[center][b][i]BOTTOM LINE: You are responsible for providing complete, accurate, and truthful responses.[/i][/b][/center]
+[/sectionbody]
+
+[sectionheader]1. PERSONAL INFORMATION[/sectionheader][sectionbody]
+
+[b]1. FIRST NAME[/b]
+[listnone]${val("firstName")}[/listnone]
+
+[b]2. MIDDLE NAME[/b]
+[listnone]${val("middleName")}[/listnone]
+
+[b]3. LAST NAME[/b]
+[listnone]${val("lastName")}[/listnone]
+
+[b]4. DATE OF BIRTH[/b]
+[listnone]${val("dob")}[/listnone]
+
+[b]5. PLACE OF BIRTH[/b]
+[listnone]${val("birthPlace")}[/listnone]
+
+[b]6. GENDER[/b]
+[listnone]
+${radioList("gender", ["Male","Female","Other"])}
+[/listnone]
+
+[b]7. RACE[/b]
+[listnone]
+${radioList("race", [
+"White",
+"Black or African American",
+"Hispanic or Latino",
+"American Indian or Alaska Native",
+"Asian",
+"Filipino-American",
+"Native Hawaiian or Other Pacific Islander",
+"None of the Above",
+"Two or More Races"
+])}
+[/listnone]
+
+[b]8. HEIGHT & WEIGHT[/b]
+[listnone]
+In feet: ${val("feet")}
+In inches: ${val("inches")}
+In pounds: ${val("pounds")}
+[/listnone]
+
+[b]9. MARITAL STATUS[/b]
+[listnone]
+${radioList("marital", [
+"Single",
+"Married",
+"Divorced",
+"Widow",
+"Legally Separated",
+"Unknown/Not Applicable"
+])}
+[/listnone]
+
+[b]10. ADDRESS OF PRIMARY RESIDENCY[/b]
+[listnone]
+Street Number & Name: ${val("address")}
+City: ${val("city")}
+State: ${val("state")}
+[/listnone]
+
+[b]11. PRIMARY PHONE NUMBER[/b]
+[listnone]${val("phone")}[/listnone]
+
+[floatright][b]PROCEED TO NEXT PAGE[/b][/floatright]
+[/sectionbody]
+
+[sectionheader]2. BACKGROUND QUESTIONNAIRE[/sectionheader][sectionbody]
+
+[b]12. LEVEL OF EDUCATION[/b]
+[listnone]
+${radioList("education", [
+"Some High School",
+"High School",
+"Some College",
+"Technical College",
+"Associate's Degree",
+"Bachelor's Degree",
+"Master's Degree",
+"Doctorate"
+])}
+[/listnone]
+
+[b]13. I HAVE A VALID SAN ANDREAS DRIVER LICENSE[/b]
+[listnone]
+${radioList("license", ["Yes","No","Unknown","Not Willing to Answer"])}
+[/listnone]
+
+[b]14. I AM LEGALLY ABLE TO WORK IN THE UNITED STATES OF AMERICA[/b]
+[listnone]
+${radioList("work", ["Yes","No","Unknown","Not Willing to Answer"])}
+[/listnone]
+
+[b]15. IN ADDITION TO ENGLISH, I KNOW THE FOLLOWING LANGUAGE(S)[/b]
+[listnone]${getLanguages()}[/listnone]
+
+[floatright][b]PROCEED TO NEXT PAGE[/b][/floatright]
+[/sectionbody]
+
+[sectionheader]3. DECLARATION & ACKNOWLEDGEMENT[/sectionheader][sectionbody]
+I, the undersigned, do herein agree that the information aforementioned is true and complete to the best of my knowledge under the penalty of perjury. I further agree and understand that the information provided will be utilized by the Los Santos County Sheriff's Department for the purposes of employment & preliminary background investigation for the position of Deputy Sheriff Trainee.
+
+[b]16. SIGNATURE[/b]
+[listnone]${val("firstName")} ${val("lastName")}[/listnone]
+
+[floatright][b]PROCEED TO NEXT PAGE[/b][/floatright]
+[/sectionbody]
+
+[sectionheader](( 4. OUT OF CHARACTER QUESTIONS ))[/sectionheader][sectionbody]
+
+[b]17. MY TIMEZONE & COUNTRY[/b]
+[listnone]${val("timezone")} - ${val("country")}[/listnone]
+
+[b]18. MY DISCORD USERNAME[/b]
+[listnone]${val("discord")}[/listnone]
+
+[b]19. LIST OF MY CURRENT CHARACTERS AND MY UCP NAME[/b]
+[list]
+${getCharacters()}
+[/list]
+
+[b]20. UNEDITED SCREENSHOT OF UCP ADMIN RECORDS[/b]
+[listnone]
+Generate your record at: https://solsroleplay.com/ucp/admin_record.php
+[spoiler][img]${val("adminRecord")}[/img][/spoiler]
+[/listnone]
+
+[b]21. BACKGROUND STORY[/b]
+[listnone]${val("story")}[/listnone]
+
+[floatright][b]STOP — END OF APPLICATION[/b][/floatright]
+[/sectionbody]`;
+
+document.getElementById("output").value = output.trim();
+}
+    
+  });
+}
+</script>
 </body>
 </html>
