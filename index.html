@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>LSSD Recruitment Application</title>
+
+<link rel="icon" type="image/png" href="favicon.png">
+
+<style>
+body {
+  font-family: Arial;
+  max-width: 1100px;
+  margin: auto;
+  background-color: #2E3E2B;
+  color: #fff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 0 30px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #556B2F;
+}
+
+.header img { width: 65px; }
+
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  color: #111;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+textarea, input, select {
+  width: 100%;
+  margin-bottom: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <img src="sheriff.png">
+  <h2>LSSD Recruitment Application</h2>
+</div>
+
+<!-- PERSONAL -->
+<h3>Personal Information</h3>
+<div class="section-grid">
+
+<div class="card">
+<h4>Name</h4>
+<input id="firstName" placeholder="First Name">
+<input id="middleName" placeholder="Middle Name">
+<input id="lastName" placeholder="Last Name">
+</div>
+
+<div class="card">
+<h4>Birth</h4>
+<input id="dob" type="date">
+<input id="birthPlace" placeholder="Place of Birth">
+</div>
+
+<div class="card">
+<h4>Details</h4>
+<select id="gender">
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+
+<select id="race">
+<option>White</option>
+<option>Black</option>
+<option>Hispanic</option>
+<option>Asian</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="card">
+<h4>Physical</h4>
+<input id="height" placeholder="Height (e.g. 5'10)">
+<input id="weight" placeholder="Weight (lbs)">
+</div>
+
+<div class="card">
+<h4>Contact</h4>
+<input id="address" placeholder="Address">
+<input id="phone" placeholder="Phone">
+</div>
+
+</div>
+
+<!-- BACKGROUND -->
+<h3>Background</h3>
+<div class="section-grid">
+
+<div class="card">
+<h4>Education</h4>
+<select id="education">
+<option>High School</option>
+<option>College</option>
+<option>Bachelor</option>
+<option>Master</option>
+</select>
+</div>
+
+<div class="card">
+<h4>Eligibility</h4>
+<select id="license">
+<option>Yes</option>
+<option>No</option>
+</select>
+
+<select id="work">
+<option>Yes</option>
+<option>No</option>
+</select>
+</div>
+
+<div class="card">
+<h4>Languages</h4>
+<input id="languages" placeholder="Languages spoken">
+</div>
+
+</div>
+
+<!-- DECLARATION -->
+<h3>Declaration</h3>
+<div class="section-grid">
+
+<div class="card">
+<h4>Signature</h4>
+<input id="signature" placeholder="Full Name Signature">
+</div>
+
+</div>
+
+<!-- OOC -->
+<h3>Out of Character</h3>
+<div class="section-grid">
+
+<div class="card">
+<input id="timezone" placeholder="Timezone & Country">
+<input id="discord" placeholder="Discord Username">
+</div>
+
+<div class="card">
+<textarea id="characters" placeholder="UCP + Characters"></textarea>
+</div>
+
+<div class="card">
+<textarea id="story" placeholder="Background Story"></textarea>
+</div>
+
+</div>
+
+<br>
+
+<button onclick="generate()">Generate BBCode</button>
+<button onclick="copyOutput()">Copy</button>
+
+<h3>Output</h3>
+<textarea id="output" rows="20"></textarea>
+
+<script>
+
+const $ = id => document.getElementById(id);
+
+function generate() {
+
+const val = id => $(id).value || "D.N.A.";
+
+const output = `
+[sectionheader]1. PERSONAL INFORMATION[/sectionheader]
+[sectionbody]
+[b]NAME[/b]
+[listnone]${val("firstName")} ${val("middleName")} ${val("lastName")}[/listnone]
+
+[b]DATE OF BIRTH[/b]
+[listnone]${val("dob")}[/listnone]
+
+[b]PLACE OF BIRTH[/b]
+[listnone]${val("birthPlace")}[/listnone]
+
+[b]GENDER[/b]
+[listnone]${val("gender")}[/listnone]
+
+[b]RACE[/b]
+[listnone]${val("race")}[/listnone]
+
+[b]HEIGHT & WEIGHT[/b]
+[listnone]${val("height")} / ${val("weight")}[/listnone]
+
+[b]ADDRESS[/b]
+[listnone]${val("address")}[/listnone]
+
+[b]PHONE[/b]
+[listnone]${val("phone")}[/listnone]
+[/sectionbody]
+
+[sectionheader]2. BACKGROUND[/sectionheader]
+[sectionbody]
+[b]EDUCATION[/b]
+[listnone]${val("education")}[/listnone]
+
+[b]DRIVER LICENSE[/b]
+[listnone]${val("license")}[/listnone]
+
+[b]WORK ELIGIBILITY[/b]
+[listnone]${val("work")}[/listnone]
+
+[b]LANGUAGES[/b]
+[listnone]${val("languages")}[/listnone]
+[/sectionbody]
+
+[sectionheader]3. DECLARATION[/sectionheader]
+[sectionbody]
+[b]SIGNATURE[/b]
+[listnone]${val("signature")}[/listnone]
+[/sectionbody]
+
+[sectionheader]4. OOC[/sectionheader]
+[sectionbody]
+[b]TIMEZONE[/b]
+[listnone]${val("timezone")}[/listnone]
+
+[b]DISCORD[/b]
+[listnone]${val("discord")}[/listnone]
+
+[b]CHARACTERS[/b]
+[listnone]${val("characters")}[/listnone]
+
+[b]STORY[/b]
+[listnone]${val("story")}[/listnone]
+[/sectionbody]
+`;
+
+$("output").value = output.trim();
+}
+
+function copyOutput() {
+  $("output").select();
+  document.execCommand("copy");
+}
+
+</script>
+
+</body>
+</html>
