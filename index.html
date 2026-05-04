@@ -4,10 +4,8 @@
 <meta charset="UTF-8">
 <title>LSSD Deputy Sheriff Trainee Application</title>
 
-<!-- FAVICON -->
 <link rel="icon" type="image/png" href="favicon.png">
 
-<!-- THUMBNAIL / DISCORD -->
 <meta property="og:title" content="LSSD Deputy Sheriff Trainee Application">
 <meta property="og:description" content="Apply to the Los Santos County Sheriff's Department.">
 <meta property="og:image" content="https://lobo-gen.github.io/trainee.png">
@@ -64,16 +62,19 @@ textarea, input {
   margin-bottom:6px;
 }
 
-/* CHECKBOX LEFT ALIGN FIX */
+/* CHECKBOX FIX */
 .option {
   display:flex;
   align-items:center;
   gap:8px;
   justify-content:flex-start;
+  text-align:left;
 }
 
-.option input {
-  margin:0;
+.card label {
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
 /* VALIDATION */
@@ -98,48 +99,64 @@ textarea, input {
   <h2>LSSD Recruitment Application</h2>
 </div>
 
+<!-- DISCLAIMER -->
+<div class="card full">
+<h4>Instructions to the Applicant</h4>
+<p>
+The information you provide in this application will be used in the background investigation to assist in determining your suitability for the position of San Andreas Peace Officer. You must respond to all items. If a question does not apply to you, write "D.N.A." in the space provided. Deliberate misstatements or omissions can and often will result in your application being rejected.
+</p>
+<p style="text-align:center;"><b><i>BOTTOM LINE: You are responsible for providing complete, accurate, and truthful responses.</i></b></p>
+</div>
+
 <!-- PERSONAL -->
 <h3>1. PERSONAL INFORMATION</h3>
 
 <div class="section-grid">
 
 <div class="card">
+<h4>1–3. NAME</h4>
 <input id="firstName" placeholder="First Name">
 <input id="middleName" placeholder="Middle Name">
 <input id="lastName" placeholder="Last Name">
 </div>
 
 <div class="card">
+<h4>4–5. BIRTH</h4>
 <input id="dob" type="date">
 <input id="birthPlace" placeholder="Place of Birth">
 </div>
 
 <div class="card">
+<h4>6. GENDER</h4>
 <label class="option"><input type="radio" name="gender" value="Male"> Male</label>
 <label class="option"><input type="radio" name="gender" value="Female"> Female</label>
 <label class="option"><input type="radio" name="gender" value="Other"> Other</label>
 </div>
 
 <div class="card">
+<h4>7. RACE</h4>
 <label class="option"><input type="radio" name="race" value="White"> White</label>
-<label class="option"><input type="radio" name="race" value="Black"> Black</label>
-<label class="option"><input type="radio" name="race" value="Hispanic"> Hispanic</label>
+<label class="option"><input type="radio" name="race" value="Black"> Black or African American</label>
+<label class="option"><input type="radio" name="race" value="Hispanic"> Hispanic or Latino</label>
 <label class="option"><input type="radio" name="race" value="Asian"> Asian</label>
 </div>
 
 <div class="card">
+<h4>8. HEIGHT & WEIGHT</h4>
 <input id="feet" placeholder="Feet">
 <input id="inches" placeholder="Inches">
 <input id="pounds" placeholder="Pounds">
 </div>
 
 <div class="card">
+<h4>9. MARITAL STATUS</h4>
 <label class="option"><input type="radio" name="marital" value="Single"> Single</label>
 <label class="option"><input type="radio" name="marital" value="Married"> Married</label>
 <label class="option"><input type="radio" name="marital" value="Divorced"> Divorced</label>
 </div>
 
 <div class="card full">
+<h4>10–11. ADDRESS & CONTACT</h4>
 <input id="address" placeholder="Street">
 <input id="city" placeholder="City">
 <input id="state" placeholder="State">
@@ -149,7 +166,7 @@ textarea, input {
 </div>
 
 <!-- BACKGROUND -->
-<h3>2. BACKGROUND</h3>
+<h3>2. BACKGROUND QUESTIONNAIRE</h3>
 
 <div class="section-grid">
 
@@ -157,7 +174,7 @@ textarea, input {
 <h4>12. LEVEL OF EDUCATION</h4>
 <label class="option"><input type="radio" name="education" value="High School"> High School</label>
 <label class="option"><input type="radio" name="education" value="College"> College</label>
-<label class="option"><input type="radio" name="education" value="Degree"> Degree</label>
+<label class="option"><input type="radio" name="education" value="Bachelor"> Bachelor's Degree</label>
 </div>
 
 <div class="card">
@@ -167,13 +184,14 @@ textarea, input {
 </div>
 
 <div class="card">
-<h4>14. WORK ELIGIBILITY</h4>
+<h4>14. LEGALLY ABLE TO WORK IN THE U.S.?</h4>
 <label class="option"><input type="radio" name="work" value="Yes"> Yes</label>
 <label class="option"><input type="radio" name="work" value="No"> No</label>
 </div>
 
 <div class="card full">
-<input id="languages" placeholder="Languages">
+<h4>15. LANGUAGES</h4>
+<input id="languages" placeholder="Languages spoken">
 </div>
 
 </div>
@@ -184,44 +202,39 @@ textarea, input {
 <div class="section-grid">
 
 <div class="card">
+<h4>17–18. TIMEZONE & DISCORD</h4>
 <input id="timezone" placeholder="Timezone & Country">
-<input id="discord" placeholder="Discord">
+<input id="discord" placeholder="Discord Username">
 </div>
 
 <div class="card">
 <h4>19. UCP AND CHARACTERS</h4>
 <input id="ucpName" placeholder="UCP Name">
 <div id="charList"></div>
-<button onclick="addChar()">+ Add</button>
+<button onclick="addChar()">+ Add Character</button>
 </div>
 
 <div class="card">
-<input id="adminRecord" placeholder="Admin Record Link">
+<h4>20. ADMIN RECORD</h4>
+<input id="adminRecord" placeholder="https://solsroleplay.com/ucp/admin_record.php">
 </div>
 
 <div class="card full">
-<textarea id="story" rows="10" placeholder="Character Background Story (Any use of AI will result in immediate disqualification)"></textarea>
+<h4>21. BACKGROUND STORY</h4>
+<textarea id="story" rows="10" placeholder="Write your character story (AI usage = disqualification)"></textarea>
 </div>
 
 </div>
 
 <div class="output-area">
-<h3>Output</h3>
-<textarea id="output" rows="18"></textarea>
+<h3>Output (BBCode)</h3>
+<textarea id="output" rows="20"></textarea>
 </div>
 
 <script>
 const $ = id => document.getElementById(id);
 
-// LOCAL STORAGE
-document.querySelectorAll("input, textarea").forEach(el=>{
-  if(!el.id) return;
-  const saved = localStorage.getItem(el.id);
-  if(saved) el.value = saved;
-  el.addEventListener("input", ()=>localStorage.setItem(el.id, el.value));
-});
-
-// VALIDATION
+// validation
 const required = ["firstName","lastName","dob","ucpName","discord","story"];
 
 function validate(el){
@@ -236,23 +249,23 @@ function validate(el){
 
 required.forEach(id=>{
   const el=$(id);
-  if(!el) return;
   el.addEventListener("input",()=>validate(el));
 });
 
-// HELPERS
+// radios
 function getRadio(name){
   const r=document.querySelector(`input[name="${name}"]:checked`);
   return r ? r.value : "D.N.A.";
 }
 
+// characters
 function addChar(){
   const i=document.createElement("input");
   i.placeholder="Character name";
   document.getElementById("charList").appendChild(i);
 }
 
-// UPDATE
+// update
 document.querySelectorAll("input, textarea").forEach(el=>{
   el.addEventListener("input",update);
 });
@@ -266,19 +279,42 @@ required.forEach(id=>validate($(id)));
 
 let chars="";
 document.querySelectorAll("#charList input").forEach((i,idx)=>{
-  chars += `[*] Character ${idx+1}: ${i.value || "D.N.A."}\n`;
+  chars += `[*]Character ${idx+1}: ${i.value || "D.N.A."}\n`;
 });
 
 const out = `
+[sectionheader]1. PERSONAL INFORMATION[/sectionheader]
+[sectionbody]
 [b]1. FIRST NAME[/b]
 ${$("firstName").value || "D.N.A."}
 
 [b]3. LAST NAME[/b]
 ${$("lastName").value || "D.N.A."}
 
+[b]6. GENDER[/b]
+${getRadio("gender")}
+
+[b]7. RACE[/b]
+${getRadio("race")}
+
+[b]9. MARITAL STATUS[/b]
+${getRadio("marital")}
+[/sectionbody]
+
+[sectionheader]2. BACKGROUND[/sectionheader]
+[sectionbody]
+[b]12. EDUCATION[/b]
+${getRadio("education")}
+
 [b]13. DRIVER LICENSE[/b]
 ${getRadio("license")}
 
+[b]14. WORK ELIGIBILITY[/b]
+${getRadio("work")}
+[/sectionbody]
+
+[sectionheader]4. OOC[/sectionheader]
+[sectionbody]
 [b]19. UCP NAME[/b]
 ${$("ucpName").value || "D.N.A."}
 
@@ -286,6 +322,7 @@ ${chars}
 
 [b]21. STORY[/b]
 ${$("story").value || "D.N.A."}
+[/sectionbody]
 `;
 
 $("output").value = out.trim();
