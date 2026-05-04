@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <title>LSSD Deputy Sheriff Trainee Application</title>
 
-<link rel="icon" type="image/png" href="favicon.png">
+<!-- FAVICON -->
+<link rel="icon" type="image/png" href="favicon.png?v=2">
 
+<!-- THUMB -->
 <meta property="og:title" content="LSSD Deputy Sheriff Trainee Application">
 <meta property="og:description" content="Apply to the Los Santos County Sheriff's Department.">
 <meta property="og:image" content="https://lobo-gen.github.io/trainee.png">
@@ -57,24 +59,28 @@ body {
 
 .full { grid-column: span 3; }
 
-textarea, input {
+/* INPUTS */
+textarea,
+input[type="text"],
+input[type="date"],
+input[type="number"] {
   width:100%;
   margin-bottom:6px;
 }
 
-/* CHECKBOX FIX */
+input[type="radio"],
+input[type="checkbox"] {
+  width:auto;
+}
+
+/* OPTIONS */
 .option {
   display:flex;
   align-items:center;
   gap:8px;
   justify-content:flex-start;
-  text-align:left;
-}
-
-.card label {
-  display:flex;
-  align-items:center;
-  gap:8px;
+  width:100%;
+  margin-bottom:4px;
 }
 
 /* VALIDATION */
@@ -99,9 +105,9 @@ textarea, input {
   <h2>LSSD Recruitment Application</h2>
 </div>
 
-<!-- DISCLAIMER -->
+<!-- INSTRUCTIONS -->
 <div class="card full">
-<h4>Instructions to the Applicant</h4>
+<h3>Instructions to the Applicant</h3>
 <p>
 The information you provide in this application will be used in the background investigation to assist in determining your suitability for the position of San Andreas Peace Officer. You must respond to all items. If a question does not apply to you, write "D.N.A." in the space provided. Deliberate misstatements or omissions can and often will result in your application being rejected.
 </p>
@@ -114,7 +120,7 @@ The information you provide in this application will be used in the background i
 <div class="section-grid">
 
 <div class="card">
-<h4>1–3. NAME</h4>
+<h4>1–3. FULL NAME</h4>
 <input id="firstName" placeholder="First Name">
 <input id="middleName" placeholder="Middle Name">
 <input id="lastName" placeholder="Last Name">
@@ -136,8 +142,8 @@ The information you provide in this application will be used in the background i
 <div class="card">
 <h4>7. RACE</h4>
 <label class="option"><input type="radio" name="race" value="White"> White</label>
-<label class="option"><input type="radio" name="race" value="Black"> Black or African American</label>
-<label class="option"><input type="radio" name="race" value="Hispanic"> Hispanic or Latino</label>
+<label class="option"><input type="radio" name="race" value="Black or African American"> Black or African American</label>
+<label class="option"><input type="radio" name="race" value="Hispanic or Latino"> Hispanic or Latino</label>
 <label class="option"><input type="radio" name="race" value="Asian"> Asian</label>
 </div>
 
@@ -156,7 +162,7 @@ The information you provide in this application will be used in the background i
 </div>
 
 <div class="card full">
-<h4>10–11. ADDRESS & CONTACT</h4>
+<h4>10–11. CONTACT</h4>
 <input id="address" placeholder="Street">
 <input id="city" placeholder="City">
 <input id="state" placeholder="State">
@@ -166,7 +172,7 @@ The information you provide in this application will be used in the background i
 </div>
 
 <!-- BACKGROUND -->
-<h3>2. BACKGROUND QUESTIONNAIRE</h3>
+<h3>2. BACKGROUND</h3>
 
 <div class="section-grid">
 
@@ -174,7 +180,7 @@ The information you provide in this application will be used in the background i
 <h4>12. LEVEL OF EDUCATION</h4>
 <label class="option"><input type="radio" name="education" value="High School"> High School</label>
 <label class="option"><input type="radio" name="education" value="College"> College</label>
-<label class="option"><input type="radio" name="education" value="Bachelor"> Bachelor's Degree</label>
+<label class="option"><input type="radio" name="education" value="Degree"> Degree</label>
 </div>
 
 <div class="card">
@@ -184,14 +190,14 @@ The information you provide in this application will be used in the background i
 </div>
 
 <div class="card">
-<h4>14. LEGALLY ABLE TO WORK IN THE U.S.?</h4>
+<h4>14. WORK ELIGIBILITY (USA)</h4>
 <label class="option"><input type="radio" name="work" value="Yes"> Yes</label>
 <label class="option"><input type="radio" name="work" value="No"> No</label>
 </div>
 
 <div class="card full">
 <h4>15. LANGUAGES</h4>
-<input id="languages" placeholder="Languages spoken">
+<input id="languages" placeholder="Languages">
 </div>
 
 </div>
@@ -202,16 +208,16 @@ The information you provide in this application will be used in the background i
 <div class="section-grid">
 
 <div class="card">
-<h4>17–18. TIMEZONE & DISCORD</h4>
+<h4>17–18. CONTACT</h4>
 <input id="timezone" placeholder="Timezone & Country">
-<input id="discord" placeholder="Discord Username">
+<input id="discord" placeholder="Discord">
 </div>
 
 <div class="card">
 <h4>19. UCP AND CHARACTERS</h4>
 <input id="ucpName" placeholder="UCP Name">
 <div id="charList"></div>
-<button onclick="addChar()">+ Add Character</button>
+<button onclick="addChar()">+ Add</button>
 </div>
 
 <div class="card">
@@ -221,113 +227,15 @@ The information you provide in this application will be used in the background i
 
 <div class="card full">
 <h4>21. BACKGROUND STORY</h4>
-<textarea id="story" rows="10" placeholder="Write your character story (AI usage = disqualification)"></textarea>
+<textarea id="story" rows="10" placeholder="Character Background Story (Any use of AI will result in immediate disqualification)"></textarea>
 </div>
 
 </div>
 
 <div class="output-area">
-<h3>Output (BBCode)</h3>
-<textarea id="output" rows="20"></textarea>
+<h3>Output</h3>
+<textarea id="output" rows="18"></textarea>
 </div>
-
-<script>
-const $ = id => document.getElementById(id);
-
-// validation
-const required = ["firstName","lastName","dob","ucpName","discord","story"];
-
-function validate(el){
-  if(!el.value.trim()){
-    el.classList.add("input-error");
-    el.classList.remove("input-ok");
-  } else {
-    el.classList.remove("input-error");
-    el.classList.add("input-ok");
-  }
-}
-
-required.forEach(id=>{
-  const el=$(id);
-  el.addEventListener("input",()=>validate(el));
-});
-
-// radios
-function getRadio(name){
-  const r=document.querySelector(`input[name="${name}"]:checked`);
-  return r ? r.value : "D.N.A.";
-}
-
-// characters
-function addChar(){
-  const i=document.createElement("input");
-  i.placeholder="Character name";
-  document.getElementById("charList").appendChild(i);
-}
-
-// update
-document.querySelectorAll("input, textarea").forEach(el=>{
-  el.addEventListener("input",update);
-});
-document.querySelectorAll("input[type=radio]").forEach(el=>{
-  el.addEventListener("change",update);
-});
-
-function update(){
-
-required.forEach(id=>validate($(id)));
-
-let chars="";
-document.querySelectorAll("#charList input").forEach((i,idx)=>{
-  chars += `[*]Character ${idx+1}: ${i.value || "D.N.A."}\n`;
-});
-
-const out = `
-[sectionheader]1. PERSONAL INFORMATION[/sectionheader]
-[sectionbody]
-[b]1. FIRST NAME[/b]
-${$("firstName").value || "D.N.A."}
-
-[b]3. LAST NAME[/b]
-${$("lastName").value || "D.N.A."}
-
-[b]6. GENDER[/b]
-${getRadio("gender")}
-
-[b]7. RACE[/b]
-${getRadio("race")}
-
-[b]9. MARITAL STATUS[/b]
-${getRadio("marital")}
-[/sectionbody]
-
-[sectionheader]2. BACKGROUND[/sectionheader]
-[sectionbody]
-[b]12. EDUCATION[/b]
-${getRadio("education")}
-
-[b]13. DRIVER LICENSE[/b]
-${getRadio("license")}
-
-[b]14. WORK ELIGIBILITY[/b]
-${getRadio("work")}
-[/sectionbody]
-
-[sectionheader]4. OOC[/sectionheader]
-[sectionbody]
-[b]19. UCP NAME[/b]
-${$("ucpName").value || "D.N.A."}
-
-${chars}
-
-[b]21. STORY[/b]
-${$("story").value || "D.N.A."}
-[/sectionbody]
-`;
-
-$("output").value = out.trim();
-}
-</script>
 
 </body>
 </html>
