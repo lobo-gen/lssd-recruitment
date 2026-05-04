@@ -4,7 +4,20 @@
 <meta charset="UTF-8">
 <title>LSSD Recruitment Application</title>
 
+<!-- FAVICON -->
 <link rel="icon" type="image/png" href="favicon.png">
+
+<!-- THUMBNAIL / DISCORD -->
+<meta property="og:title" content="LSSD Recruitment Application">
+<meta property="og:description" content="Apply to the Los Santos County Sheriff's Department.">
+<meta property="og:image" content="https://lobo-gen.github.io/lssd.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lobo-gen.github.io/">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2E3E2B">
 
 <style>
 body {
@@ -51,13 +64,16 @@ textarea, input {
   margin-bottom:6px;
 }
 
-/* CHECKBOX ALIGN */
+/* CHECKBOX LEFT ALIGN FIX */
 .option {
   display:flex;
   align-items:center;
-  justify-content:flex-start;
   gap:8px;
-  margin:2px 0;
+  justify-content:flex-start;
+}
+
+.option input {
+  margin:0;
 }
 
 /* VALIDATION */
@@ -69,13 +85,8 @@ textarea, input {
   border:2px solid #2ecc71 !important;
 }
 
-small {
-  font-size:12px;
-  color:#444;
-}
-
 .output-area {
-  margin-top:30px;
+  margin-top:40px;
 }
 </style>
 </head>
@@ -87,65 +98,49 @@ small {
   <h2>LSSD Recruitment Application</h2>
 </div>
 
-<div class="card full">
-<h4>Instructions to the Applicant</h4>
-<p>
-The information you provide in this application will be used in the background investigation to assist in determining your suitability for the position of San Andreas Peace Officer. You must respond to all items. If a question does not apply to you, write "D.N.A." in the space provided. Deliberate misstatements or omissions can and often will result in your application being rejected.
-</p>
-<p style="text-align:center;"><b><i>BOTTOM LINE: You are responsible for providing complete, accurate, and truthful responses.</i></b></p>
-</div>
-
+<!-- PERSONAL -->
 <h3>1. PERSONAL INFORMATION</h3>
 
 <div class="section-grid">
 
 <div class="card">
-<h4>1–3. NAME</h4>
 <input id="firstName" placeholder="First Name">
 <input id="middleName" placeholder="Middle Name">
 <input id="lastName" placeholder="Last Name">
 </div>
 
 <div class="card">
-<h4>4–5. BIRTH</h4>
 <input id="dob" type="date">
 <input id="birthPlace" placeholder="Place of Birth">
 </div>
 
 <div class="card">
-<h4>6. GENDER</h4>
 <label class="option"><input type="radio" name="gender" value="Male"> Male</label>
 <label class="option"><input type="radio" name="gender" value="Female"> Female</label>
 <label class="option"><input type="radio" name="gender" value="Other"> Other</label>
 </div>
 
 <div class="card">
-<h4>7. RACE</h4>
 <label class="option"><input type="radio" name="race" value="White"> White</label>
-<label class="option"><input type="radio" name="race" value="Black"> Black or African American</label>
-<label class="option"><input type="radio" name="race" value="Hispanic"> Hispanic or Latino</label>
+<label class="option"><input type="radio" name="race" value="Black"> Black</label>
+<label class="option"><input type="radio" name="race" value="Hispanic"> Hispanic</label>
 <label class="option"><input type="radio" name="race" value="Asian"> Asian</label>
-<label class="option"><input type="radio" name="race" value="Other"> Other</label>
 </div>
 
 <div class="card">
-<h4>8. HEIGHT & WEIGHT</h4>
 <input id="feet" placeholder="Feet">
 <input id="inches" placeholder="Inches">
 <input id="pounds" placeholder="Pounds">
 </div>
 
 <div class="card">
-<h4>9. MARITAL STATUS</h4>
 <label class="option"><input type="radio" name="marital" value="Single"> Single</label>
 <label class="option"><input type="radio" name="marital" value="Married"> Married</label>
 <label class="option"><input type="radio" name="marital" value="Divorced"> Divorced</label>
-<label class="option"><input type="radio" name="marital" value="Other"> Other</label>
 </div>
 
 <div class="card full">
-<h4>10–11. ADDRESS & PHONE</h4>
-<input id="address" placeholder="Street Number & Name">
+<input id="address" placeholder="Street">
 <input id="city" placeholder="City">
 <input id="state" placeholder="State">
 <input id="phone" placeholder="Phone">
@@ -153,20 +148,20 @@ The information you provide in this application will be used in the background i
 
 </div>
 
-<h3>2. BACKGROUND QUESTIONNAIRE</h3>
+<!-- BACKGROUND -->
+<h3>2. BACKGROUND</h3>
 
 <div class="section-grid">
 
 <div class="card">
 <h4>12. LEVEL OF EDUCATION</h4>
-<label class="option"><input type="radio" name="education" value="Some High School"> Some High School</label>
 <label class="option"><input type="radio" name="education" value="High School"> High School</label>
 <label class="option"><input type="radio" name="education" value="College"> College</label>
 <label class="option"><input type="radio" name="education" value="Degree"> Degree</label>
 </div>
 
 <div class="card">
-<h4>13. DRIVER LICENSE</h4>
+<h4>13. DO YOU POSSESS A VALID SAN ANDREAS DRIVER LICENSE?</h4>
 <label class="option"><input type="radio" name="license" value="Yes"> Yes</label>
 <label class="option"><input type="radio" name="license" value="No"> No</label>
 </div>
@@ -178,39 +173,34 @@ The information you provide in this application will be used in the background i
 </div>
 
 <div class="card full">
-<h4>15. LANGUAGES</h4>
-<input id="languages" placeholder="Answer Here">
+<input id="languages" placeholder="Languages">
 </div>
 
 </div>
 
-<h3>4. OUT OF CHARACTER QUESTIONS</h3>
+<!-- OOC -->
+<h3>4. OUT OF CHARACTER</h3>
 
 <div class="section-grid">
 
 <div class="card">
-<h4>17–18. TIMEZONE & DISCORD</h4>
 <input id="timezone" placeholder="Timezone & Country">
-<input id="discord" placeholder="Discord Username">
+<input id="discord" placeholder="Discord">
 </div>
 
 <div class="card">
-<h4>19. CHARACTERS</h4>
+<h4>19. UCP AND CHARACTERS</h4>
 <input id="ucpName" placeholder="UCP Name">
 <div id="charList"></div>
 <button onclick="addChar()">+ Add</button>
 </div>
 
 <div class="card">
-<h4>20. ADMIN RECORD</h4>
-<small>Generate at: https://solsroleplay.com/ucp/admin_record.php</small>
-<input id="adminRecord">
+<input id="adminRecord" placeholder="Admin Record Link">
 </div>
 
 <div class="card full">
-<h4>21. BACKGROUND STORY</h4>
-<small style="color:red;">Any use of AI will result in disqualification</small>
-<textarea id="story" rows="10"></textarea>
+<textarea id="story" rows="10" placeholder="Background Story (AI = disqualification)"></textarea>
 </div>
 
 </div>
@@ -223,25 +213,19 @@ The information you provide in this application will be used in the background i
 <script>
 const $ = id => document.getElementById(id);
 
-// ================= LOCAL STORAGE =================
+// LOCAL STORAGE
 document.querySelectorAll("input, textarea").forEach(el=>{
-  if (!el.id) return;
-
+  if(!el.id) return;
   const saved = localStorage.getItem(el.id);
-  if (saved !== null) el.value = saved;
-
-  el.addEventListener("input", ()=>{
-    localStorage.setItem(el.id, el.value);
-  });
+  if(saved) el.value = saved;
+  el.addEventListener("input", ()=>localStorage.setItem(el.id, el.value));
 });
 
-// ================= VALIDATION =================
-const requiredFields = ["firstName","lastName","dob","ucpName","discord","story"];
+// VALIDATION
+const required = ["firstName","lastName","dob","ucpName","discord","story"];
 
-function validateField(el){
-  if(!el) return;
-
-  if(!el.value || el.value.trim()===""){
+function validate(el){
+  if(!el.value.trim()){
     el.classList.add("input-error");
     el.classList.remove("input-ok");
   } else {
@@ -250,35 +234,35 @@ function validateField(el){
   }
 }
 
-requiredFields.forEach(id=>{
-  const el = $(id);
+required.forEach(id=>{
+  const el=$(id);
   if(!el) return;
-  el.addEventListener("input", ()=>validateField(el));
+  el.addEventListener("input",()=>validate(el));
 });
 
-// ================= HELPERS =================
+// HELPERS
 function getRadio(name){
-  const el = document.querySelector(`input[name="${name}"]:checked`);
-  return el ? el.value : "D.N.A.";
+  const r=document.querySelector(`input[name="${name}"]:checked`);
+  return r ? r.value : "D.N.A.";
 }
 
 function addChar(){
-  const i = document.createElement("input");
-  i.placeholder = "Character name";
+  const i=document.createElement("input");
+  i.placeholder="Character name";
   document.getElementById("charList").appendChild(i);
 }
 
-// ================= AUTO UPDATE =================
+// UPDATE
 document.querySelectorAll("input, textarea").forEach(el=>{
-  el.addEventListener("input", update);
+  el.addEventListener("input",update);
 });
 document.querySelectorAll("input[type=radio]").forEach(el=>{
-  el.addEventListener("change", update);
+  el.addEventListener("change",update);
 });
 
 function update(){
 
-requiredFields.forEach(id=>validateField($(id)));
+required.forEach(id=>validate($(id)));
 
 let chars="";
 document.querySelectorAll("#charList input").forEach((i,idx)=>{
@@ -286,75 +270,22 @@ document.querySelectorAll("#charList input").forEach((i,idx)=>{
 });
 
 const out = `
-[sectionheader]1. PERSONAL INFORMATION[/sectionheader][sectionbody]
-
 [b]1. FIRST NAME[/b]
-[listnone]${$("firstName").value || "D.N.A."}[/listnone]
-
-[b]2. MIDDLE NAME[/b]
-[listnone]${$("middleName").value || "D.N.A."}[/listnone]
+${$("firstName").value || "D.N.A."}
 
 [b]3. LAST NAME[/b]
-[listnone]${$("lastName").value || "D.N.A."}[/listnone]
+${$("lastName").value || "D.N.A."}
 
-[b]4. DATE OF BIRTH[/b]
-[listnone]${$("dob").value || "D.N.A."}[/listnone]
+[b]13. DRIVER LICENSE[/b]
+${getRadio("license")}
 
-[b]5. PLACE OF BIRTH[/b]
-[listnone]${$("birthPlace").value || "D.N.A."}[/listnone]
+[b]19. UCP NAME[/b]
+${$("ucpName").value || "D.N.A."}
 
-[b]6. GENDER[/b]
-[listnone]${getRadio("gender")}[/listnone]
-
-[b]7. RACE[/b]
-[listnone]${getRadio("race")}[/listnone]
-
-[b]8. HEIGHT & WEIGHT[/b]
-[listnone]
-In feet: ${$("feet").value || "D.N.A."}
-In inches: ${$("inches").value || "D.N.A."}
-In pounds: ${$("pounds").value || "D.N.A."}
-[/listnone]
-
-[b]9. MARITAL STATUS[/b]
-[listnone]${getRadio("marital")}[/listnone]
-
-[b]10. ADDRESS OF PRIMARY RESIDENCY[/b]
-[listnone]
-Street Number & Name: ${$("address").value || "D.N.A."}
-City: ${$("city").value || "D.N.A."}
-State: ${$("state").value || "D.N.A."}
-[/listnone]
-
-[b]11. PRIMARY PHONE NUMBER[/b]
-[listnone]${$("phone").value || "D.N.A."}[/listnone]
-
-[/sectionbody]
-
-[sectionheader]4. OUT OF CHARACTER QUESTIONS[/sectionheader][sectionbody]
-
-[b]17. MY TIMEZONE & COUNTRY[/b]
-[listnone]${$("timezone").value || "D.N.A."}[/listnone]
-
-[b]18. MY DISCORD USERNAME[/b]
-[listnone]${$("discord").value || "D.N.A."}[/listnone]
-
-[b]19. LIST OF MY CURRENT CHARACTERS AND MY UCP NAME[/b]
-[list]
-[*]UCP Name: ${$("ucpName").value || "D.N.A."}
 ${chars}
-[/list]
 
-[b]20. UNEDITED SCREENSHOT OF UCP ADMIN RECORDS[/b]
-[listnone]
-Generate your record at: https://solsroleplay.com/ucp/admin_record.php
-[spoiler][img]${$("adminRecord").value || "D.N.A."}[/img][/spoiler]
-[/listnone]
-
-[b]21. BACKGROUND STORY[/b]
-[listnone]${$("story").value || "D.N.A."}[/listnone]
-
-[/sectionbody]
+[b]21. STORY[/b]
+${$("story").value || "D.N.A."}
 `;
 
 $("output").value = out.trim();
