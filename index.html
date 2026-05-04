@@ -543,16 +543,22 @@ Generate your record at: https://solsroleplay.com/ucp/admin_record.php
 [floatright][b]STOP — END OF APPLICATION[/b][/floatright]
 [/sectionbody]`;
 
+// OUTPUT BODY
 $("output").value = output.trim();
 
+// OUTPUT TITLE
+$("titleOutput").value = `[DST] ${val("firstName")} ${val("lastName")}`;
+}
+
+// ================= COPY =================
 function copyTitle(){
-  const el = document.getElementById("titleOutput");
+  const el = $("titleOutput");
   el.select();
   document.execCommand("copy");
 }
 
 function copyBody(){
-  const el = document.getElementById("output");
+  const el = $("output");
   el.select();
   document.execCommand("copy");
 }
