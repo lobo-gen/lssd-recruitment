@@ -190,44 +190,48 @@ The information you provide in this application will be used in the background i
 </div>
 
 <div class="card">
-<h4>14. WORK ELIGIBILITY (USA)</h4>
+<h4>14. ARE YOU LEGALLY ABLE TO WORK IN THE UNITED STATES OF AMERICA?</h4>
 <label class="option"><input type="radio" name="work" value="Yes"> Yes</label>
 <label class="option"><input type="radio" name="work" value="No"> No</label>
 </div>
 
 <div class="card full">
-<h4>15. LANGUAGES</h4>
+<h4>15. IN ADDITION TO ENGLISH, I KNOW THE FOLLOWING LANGUAGE(S)</h4>
 <input id="languages" placeholder="Languages">
+<div id="Languages"></div>
+<button onclick="addChar()">+ Add</button> 
 </div>
 
 </div>
 
 <!-- OOC -->
-<h3>4. OUT OF CHARACTER</h3>
+<h3>((4. OUT OF CHARACTER))</h3>
 
 <div class="section-grid">
 
 <div class="card">
-<h4>17–18. CONTACT</h4>
-<input id="timezone" placeholder="Timezone & Country">
+<h4>17–18. YOUR TIMEZONE, COUNTRY AND DISCORD USERNAME</h4>
+<input id="timezone" placeholder="Timezone">
+  <input id="timezone" placeholder="Country">
 <input id="discord" placeholder="Discord">
 </div>
 
 <div class="card">
-<h4>19. UCP AND CHARACTERS</h4>
+<h4>19. LIST OF CURRENT CHARACTERS AND UCP NAME</h4>
 <input id="ucpName" placeholder="UCP Name">
 <div id="charList"></div>
 <button onclick="addChar()">+ Add</button>
 </div>
 
 <div class="card">
-<h4>20. ADMIN RECORD</h4>
-<input id="adminRecord" placeholder="https://solsroleplay.com/ucp/admin_record.php">
+<h4>20. UNEDITED SCREENSHOT OF UCP ADMIN RECORDS</h4>
+<p>Generate your record at: https://solsroleplay.com/ucp/admin_record.php</p>
+<input id="adminRecord" placeholder="Link to your screenshot">
 </div>
 
 <div class="card full">
-<h4>21. BACKGROUND STORY</h4>
-<textarea id="story" rows="10" placeholder="Character Background Story (Any use of AI will result in immediate disqualification)"></textarea>
+<h4>21. YOUR CHARACTER'S BACKGROUND STORY</h4>
+<textarea id="story" rows="10" placeholder="Any use of AI will result in immediate disqualification"></textarea>
 </div>
 
 </div>
