@@ -259,7 +259,7 @@ Any use of AI will result in immediate disqualification.
 <textarea id="output" rows="18"></textarea>
 </div>
 
-  <script>
+<script>
 const $ = id => document.getElementById(id);
 
 // ================= LOCAL STORAGE =================
@@ -292,7 +292,7 @@ function saveChars(){
   localStorage.setItem("charListHTML", $("charList").innerHTML);
 }
 
-// restore
+// restore chars
 const savedChars = localStorage.getItem("charListHTML");
 if (savedChars) {
   $("charList").innerHTML = savedChars;
@@ -320,13 +320,17 @@ function saveLanguages(){
   localStorage.setItem("languageListHTML", $("languageList").innerHTML);
 }
 
-// restore
+// restore languages
 const savedLang = localStorage.getItem("languageListHTML");
 if (savedLang) {
   $("languageList").innerHTML = savedLang;
 
   document.querySelectorAll("#languageList input").forEach(input=>{
     input.addEventListener("input", saveLanguages);
+  });
+}
+
+// ================= HELPERS =================
 function val(id){
   const el = document.getElementById(id);
   return el && el.value.trim() ? el.value : "D.N.A.";
@@ -360,6 +364,7 @@ function getCharacters(){
   return out.trim();
 }
 
+// ================= GENERATE =================
 function generateBBCode(){
 
 const output = `[sectionheader]Instructions to the Applicant[/sectionheader][sectionbody]
@@ -502,10 +507,7 @@ Generate your record at: https://solsroleplay.com/ucp/admin_record.php
 [floatright][b]STOP — END OF APPLICATION[/b][/floatright]
 [/sectionbody]`;
 
-document.getElementById("output").value = output.trim();
-}
-    
-  });
+$("output").value = output.trim();
 }
 </script>
 </body>
