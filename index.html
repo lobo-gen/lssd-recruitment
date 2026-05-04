@@ -10,9 +10,9 @@
 <!-- THUMB -->
 <meta property="og:title" content="LSSD Deputy Sheriff Trainee Application">
 <meta property="og:description" content="Apply to the Los Santos County Sheriff's Department.">
-<meta property="og:image" content="https://lobo-gen.github.io/trainee.png">
+<meta property="og:image" content="https://lobo-gen.github.io/lssd-recruitment/trainee.png">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://lobo-gen.github.io/">
+<meta property="og:url" content="https://lobo-gen.github.io/lssd-recruitment/">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
@@ -37,6 +37,20 @@ body {
   padding-bottom:10px;
   border-bottom:2px solid #556B2F;
   box-shadow:0 4px 6px rgba(0,0,0,0.3);
+}
+
+button {
+  background:#556B2F;
+  color:#fff;
+  border:none;
+  padding:6px 10px;
+  border-radius:4px;
+  cursor:pointer;
+  margin-bottom:10px;
+}
+
+button:hover {
+  background:#6f8f3a;
 }
 
 .header img { width:65px; }
@@ -162,11 +176,11 @@ The information you provide in this application will be used in the background i
 </div>
 
 <div class="card full">
-<h4>10–11. CONTACT</h4>
+<h4>10–11. ADDRESS OF PRIMARY RESIDENCY and CONTACT</h4>
 <input id="address" placeholder="Street">
 <input id="city" placeholder="City">
 <input id="state" placeholder="State">
-<input id="phone" placeholder="Phone">
+<input id="phone" placeholder="Phone Number">
 </div>
 
 </div>
@@ -235,7 +249,12 @@ The information you provide in this application will be used in the background i
 
 <div class="card">
 <h4>20. UNEDITED SCREENSHOT OF UCP ADMIN RECORDS</h4>
-<p>Generate your record at: https://solsroleplay.com/ucp/admin_record.php</p>
+<p>
+Generate your record at:
+<a href="https://solsroleplay.com/ucp/admin_record.php" target="_blank">
+https://solsroleplay.com/ucp/admin_record.php
+</a>
+</p>
 <input id="adminRecord" placeholder="Link to your screenshot">
 </div>
 
@@ -255,8 +274,25 @@ Any use of AI will result in immediate disqualification.
   
 <button onclick="generateBBCode()">Generate BBCode</button>
 <div class="output-area">
-<h3>Output</h3>
+
+<!-- INSTRUCTION CARD -->
+<div style="background:#fff; color:#111; padding:12px; border-radius:6px; box-shadow:0 4px 6px rgba(0,0,0,0.25); margin-bottom:15px;">
+  <b>Instructions:</b> Copy both fields below and create a new topic in the
+  <a href="https://lssd.solsroleplay.com/forums/viewforum.php?f=13" target="_blank" style="color:#2E8B57; font-weight:bold;">
+    Trainee (Entry) section
+  </a>.
+</div>
+
+<!-- TITLE -->
+<h3>Topic Title</h3>
+<textarea id="titleOutput" rows="2" readonly></textarea>
+<button onclick="copyTitle()">Copy Title</button>
+
+<!-- BODY -->
+<h3>Topic Body</h3>
 <textarea id="output" rows="18"></textarea>
+<button onclick="copyBody()">Copy Body</button>
+
 </div>
 
 <script>
@@ -508,7 +544,19 @@ Generate your record at: https://solsroleplay.com/ucp/admin_record.php
 [/sectionbody]`;
 
 $("output").value = output.trim();
+
+function copyTitle(){
+  const el = document.getElementById("titleOutput");
+  el.select();
+  document.execCommand("copy");
 }
+
+function copyBody(){
+  const el = document.getElementById("output");
+  el.select();
+  document.execCommand("copy");
+}
+
 </script>
 </body>
 </html>
