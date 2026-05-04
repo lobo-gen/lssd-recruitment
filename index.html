@@ -15,43 +15,30 @@ body {
   color: #fff;
 }
 
-/* HEADER */
 .header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin: 20px 0 30px 0;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #556B2F;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin:20px 0 30px 0;
+  padding-bottom:10px;
+  border-bottom:2px solid #556B2F;
+  box-shadow:0 4px 6px rgba(0,0,0,0.3);
 }
 
-.header img { width: 65px; }
+.header img { width:65px; }
 
-/* DISCLAIMER */
-.disclaimer {
-  background:#fff;
-  color:#111;
-  padding:15px;
-  border-radius:6px;
-  margin-bottom:20px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-}
-
-/* GRID */
 .section-grid {
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:20px;
 }
 
-/* CARD */
 .card {
   background:#fff;
   color:#111;
   padding:10px;
   border-radius:6px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.25);
+  box-shadow:0 4px 6px rgba(0,0,0,0.25);
 }
 
 .full-width {
@@ -67,6 +54,10 @@ textarea, input {
   display:block;
   cursor:pointer;
 }
+
+#output {
+  margin-top:15px;
+}
 </style>
 </head>
 
@@ -77,25 +68,20 @@ textarea, input {
   <h2>LSSD Recruitment Application</h2>
 </div>
 
-<div class="disclaimer">
-You must provide complete and truthful answers. Use "D.N.A." if not applicable.<br>
-<b>Any use of AI will result in immediate disqualification.</b>
-</div>
-
-<h3>1. Personal Information</h3>
+<h3>Personal Information</h3>
 <div class="section-grid">
 
 <div class="card">
 <h4>Full Name</h4>
-<input id="firstName" placeholder="First">
-<input id="middleName" placeholder="Middle">
-<input id="lastName" placeholder="Last">
+<input id="firstName">
+<input id="middleName">
+<input id="lastName">
 </div>
 
 <div class="card">
-<h4>Date & Place of Birth</h4>
+<h4>Birth</h4>
 <input id="dob" type="date">
-<input id="birthPlace" placeholder="Place">
+<input id="birthPlace">
 </div>
 
 <div class="card">
@@ -115,21 +101,21 @@ You must provide complete and truthful answers. Use "D.N.A." if not applicable.<
 </div>
 
 <div class="card">
-<h4>Marital Status</h4>
+<h4>Marital</h4>
 <label class="option"><input type="radio" name="marital" value="Single"> Single</label>
 <label class="option"><input type="radio" name="marital" value="Married"> Married</label>
 <label class="option"><input type="radio" name="marital" value="Divorced"> Divorced</label>
 </div>
 
 <div class="card">
-<h4>Address & Phone</h4>
-<input id="address" placeholder="Address">
-<input id="phone" placeholder="Phone">
+<h4>Contact</h4>
+<input id="address">
+<input id="phone">
 </div>
 
 </div>
 
-<h3>2. Background</h3>
+<h3>Background</h3>
 <div class="section-grid">
 
 <div class="card">
@@ -153,7 +139,7 @@ You must provide complete and truthful answers. Use "D.N.A." if not applicable.<
 
 </div>
 
-<h3>4. OOC</h3>
+<h3>OOC</h3>
 <div class="section-grid">
 
 <div class="card">
@@ -171,45 +157,87 @@ You must provide complete and truthful answers. Use "D.N.A." if not applicable.<
 <div class="card">
 <h4>Admin Record</h4>
 <p style="font-size:12px;">
-Generate your record at:<br>
+Generate at:
 https://solsroleplay.com/ucp/admin_record.php
 </p>
-<input id="adminRecord" placeholder="Image link">
+<input id="adminRecord">
 </div>
 
 <div class="card full-width">
 <h4>Background Story</h4>
-<p style="font-size:12px;color:red;">
-Any use of AI will result in disqualification.
-</p>
+<p style="color:red;font-size:12px;">Any use of AI will result in disqualification.</p>
 <textarea id="story" rows="10"></textarea>
 </div>
 
 </div>
 
-<br>
-
-<button onclick="generate()">Generate</button>
 <button onclick="copyOutput()">Copy</button>
 
-<textarea id="output" rows="15"></textarea>
+<textarea id="output" rows="18"></textarea>
 
 <script>
 
 const $ = id => document.getElementById(id);
 
+// ================= LOCAL STORAGE =================
+document.querySelectorAll("input, textarea").forEach(el => {
+  if (!el.id) return;
+
+  const saved = localStorage.getItem(el.id);
+  if (saved !== null) el.value = saved;
+
+  el.addEventListener("input", () => {
+    localStorage.setItem(el.id, el.value);
+    update();
+  });
+});
+
+// radios
+document.querySelectorAll("input[type=radio]").forEach(r => {
+  const saved = localStorage.getItem(r.name);
+  if (saved === r.value) r.checked = true;
+
+  r.addEventListener("change", () => {
+    localStorage.setItem(r.name, r.value);
+    update();
+  });
+});
+
+// characters
+function addChar(val=""){
+  const div = document.createElement("div");
+  const input = document.createElement("input");
+  input.value = val;
+
+  input.oninput = () => {
+    saveChars();
+    update();
+  };
+
+  div.appendChild(input);
+  $("charList").appendChild(div);
+  saveChars();
+}
+
+function saveChars(){
+  const chars = [];
+  document.querySelectorAll("#charList input").forEach(i=>{
+    chars.push(i.value);
+  });
+  localStorage.setItem("chars", JSON.stringify(chars));
+}
+
+// restore chars
+const savedChars = JSON.parse(localStorage.getItem("chars") || "[]");
+savedChars.forEach(c => addChar(c));
+
+// ================= GENERATE =================
 function getRadio(name){
   const el = document.querySelector(`input[name="${name}"]:checked`);
   return el ? el.value : "D.N.A.";
 }
 
-function addChar(){
-  const div = document.createElement("div");
-  div.innerHTML = `<input placeholder="Character Name">`;
-  $("charList").appendChild(div);
-}
-
-function generate(){
+function update(){
 
 let chars = "";
 document.querySelectorAll("#charList input").forEach(i=>{
@@ -250,13 +278,15 @@ ${chars}
 [listnone]${$("story").value}[/listnone]
 `;
 
-$("output").value = out;
+$("output").value = out.trim();
 }
 
 function copyOutput(){
   $("output").select();
   document.execCommand("copy");
 }
+
+update();
 
 </script>
 
